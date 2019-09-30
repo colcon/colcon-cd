@@ -1,0 +1,5 @@
+{
+    "hooks": [
+        "share/colcon_cd/function/colcon_cd.sh"
+    ]
+}

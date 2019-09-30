@@ -4,6 +4,9 @@ environment:
     - PYTHON: "C:\\Python36-x64"
 install:
   - "%PYTHON%\\python.exe -m pip install -U setuptools"
+  # install_requires
+  - "%PYTHON%\\python.exe -m pip install -U git+https://github.com/colcon/colcon-core"
+  - "%PYTHON%\\python.exe -m pip install -U git+https://github.com/colcon/colcon-package-information"
   # tests_require
   - "%PYTHON%\\python.exe -m pip install -U flake8-blind-except flake8-builtins flake8-class-newline flake8-comprehensions flake8-deprecated flake8-docstrings flake8-quotes pep8-naming pylint pytest pytest-cov scspell3k"
 build: off
