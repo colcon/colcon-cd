@@ -36,6 +36,13 @@ colcon_cd() {
 
       _colcon_cd_pkg_path="$(COLCON_LOG_PATH=/dev/null $_colcon_cd_cmd 2> /dev/null)"
       if [ $? -eq 0 ] && [ "$_colcon_cd_pkg_path" != "" ]; then
+        # count number of returned paths
+        if (( $(grep -c . <<< "$_colcon_cd_pkg_path") > 1 )); then
+          echo "Found in multiple directories:"
+          echo "$_colcon_cd_pkg_path"
+          _colcon_cd_pkg_path="$(grep -m 1 . <<< "$_colcon_cd_pkg_path")"
+          echo "cd to the first one"
+        fi
         cd "$_colcon_cd_pkg_path"
         unset _colcon_cd_pkg_path
         unset _colcon_cd_pwd
@@ -56,6 +63,13 @@ colcon_cd() {
         echo "Saved the directory '$_colcon_cd_root' for future invocations" \
           "of 'colcon_cd <pkgname>' as well as to return to using " \
           "'colcon_cd'. Call 'colcon_cd --reset' to unset the saved path."
+      fi
+      # count number of returned paths
+      if (( $(grep -c . <<< "$_colcon_cd_pkg_path") > 1 )); then
+        echo "Found in multiple directories:"
+        echo "$_colcon_cd_pkg_path"
+        _colcon_cd_pkg_path="$(grep -m 1 . <<< "$_colcon_cd_pkg_path")"
+        echo "cd to the first one"
       fi
       cd "$_colcon_cd_pkg_path"
       unset _colcon_cd_pkg_path
