@@ -27,14 +27,12 @@ colcon_cd() {
       return 0
     fi
 
-    _colcon_cd_cmd="colcon list --packages-select $1 --paths-only"
-
     if [ "$_colcon_cd_root" != "" ]; then
       # try to find the given package from the saved path
       _colcon_cd_pwd="$(pwd)"
       cd "$_colcon_cd_root"
 
-      _colcon_cd_pkg_path="$(COLCON_LOG_PATH=/dev/null $_colcon_cd_cmd 2> /dev/null)"
+      _colcon_cd_pkg_path="$(COLCON_LOG_PATH=/dev/null colcon list --packages-select $1 --paths-only 2> /dev/null)"
       if [ $? -eq 0 ] && [ "$_colcon_cd_pkg_path" != "" ]; then
         # count number of returned paths
         if (( $(grep -c . <<< "$_colcon_cd_pkg_path") > 1 )); then
@@ -55,7 +53,7 @@ colcon_cd() {
     fi
 
     # try to find the given package from the current working directory
-    _colcon_cd_pkg_path="$(COLCON_LOG_PATH=/dev/null $_colcon_cd_cmd 2> /dev/null)"
+    _colcon_cd_pkg_path="$(COLCON_LOG_PATH=/dev/null colcon list --packages-select $1 --paths-only 2> /dev/null)"
     if [ $? -eq 0 ] && [ "$_colcon_cd_pkg_path" != "" ]; then
       if [ "$_colcon_cd_root" = "" ]; then
         # store the current working directory for future invocations
