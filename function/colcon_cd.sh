@@ -14,7 +14,29 @@ colcon_cd() {
     fi
 
   elif [ $# = 1 ]; then
-    if [ "$1" = "--set" ]; then
+    if [ "$1" = "--help" ]; then
+      echo "usage: colcon_cd [--set] [--reset] [PACKAGE_NAME]"
+      echo ""
+      echo "Change the current working directory."
+      echo ""
+      echo "  colcon_cd <package_name>"
+      echo "    Change the directory to where the package with the given name is found."
+      echo "    If the <base> directory is set (by '--set' or previous invocations) it"
+      echo "    is searched recursively. As a fallback the current working directory is"
+      echo "    searched recursively. In the fallback case the <base> is set to the"
+      echo "    current working directory if it was't set before."
+      echo ""
+      echo "  colcon_cd"
+      echo "    Change the directory to the previously stored <base> directory."
+      echo ""
+      echo "  colcon_cd --set"
+      echo "    Store the current working directory as the <base> for future calls to"
+      echo "    search packages in."
+      echo ""
+      echo "  colcon_cd --reset"
+      echo "    Reset the previous stored <base>."
+      return 0
+    elif [ "$1" = "--set" ]; then
       # store the current working directory for future invocations
       _colcon_cd_root="$(pwd)"
       echo "Saved the current working directory for future invocations of" \
@@ -59,7 +81,7 @@ colcon_cd() {
         # store the current working directory for future invocations
         _colcon_cd_root="$(pwd)"
         echo "Saved the directory '$_colcon_cd_root' for future invocations" \
-          "of 'colcon_cd <pkgname>' as well as to return to using " \
+          "of 'colcon_cd <pkgname>' as well as to return to using" \
           "'colcon_cd'. Call 'colcon_cd --reset' to unset the saved path."
       fi
       # count number of returned paths
