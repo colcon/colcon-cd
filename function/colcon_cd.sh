@@ -14,7 +14,7 @@ colcon_cd() {
     fi
 
   elif [ $# = 1 ]; then
-    if [ "$1" = "--help" ]; then
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
       echo "usage: colcon_cd [--set] [--reset] [PACKAGE_NAME]"
       echo ""
       echo "Change the current working directory."
