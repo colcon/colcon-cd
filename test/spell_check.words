@@ -4,7 +4,6 @@ argparse
 autocomplete
 bainian
 colcon
-completers
 iterdir
 pathlib
 pytest
