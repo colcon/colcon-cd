@@ -6,7 +6,6 @@ import argparse
 import argcomplete
 from colcon_argcomplete.argument_parser.argcomplete.completer.package_name \
     import package_name_completer
-# from argcomplete.completers import SuppressCompleter
 
 
 def main():
@@ -21,7 +20,7 @@ def main():
     # base_path argument is needed for package_name_completer
     parser.add_argument(
         '--base-paths',
-        default='.')  # .completer = SuppressCompleter()
+        default='.')
 
     # Add --set and --unset argument for the completer
     parser.add_argument('--set')
