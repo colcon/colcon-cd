@@ -12,7 +12,7 @@ def main():
     """
     Fake command with parser for colcon_cd completer.
 
-    Using --external-argcomplete-script to construct
+    Using package_name_completer to construct
     a bash completer for the colcon_cd command.
     """
     parser = argparse.ArgumentParser()
@@ -22,10 +22,10 @@ def main():
         '--base-paths',
         default='.')
 
-    # Add --set and --unset argument for the completer
+    # Add --set and --reset argument for the completer
     parser.add_argument('--set')
 
-    parser.add_argument('--unset')
+    parser.add_argument('--reset')
 
     # Add package name completer
     parser.add_argument(
