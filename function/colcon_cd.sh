@@ -1,7 +1,9 @@
 # copied from colcon-cd/function/colcon_cd.sh
 
 colcon_cd() {
-  if [ $# = 0 ]; then
+  if [ "$_ARGCOMPLETE" == "1" ]; then
+    python3 -m colcon_cd.completer
+  elif [ $# = 0 ]; then
     # change the working directory to the previously saved path
     if [ "$_colcon_cd_root" = "" ]; then
       echo "No previous path saved. Either call 'colcon_cd <pkgname>' from a" \
@@ -14,7 +16,7 @@ colcon_cd() {
     fi
 
   elif [ $# = 1 ]; then
-    if [ "$1" = "--help" ]; then
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
       echo "usage: colcon_cd [--set] [--reset] [PACKAGE_NAME]"
       echo ""
       echo "Change the current working directory."

@@ -1,4 +1,8 @@
 apache
+argcomplete
+argparse
+autocomplete
+bainian
 colcon
 iterdir
 linter
