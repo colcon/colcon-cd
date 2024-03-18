@@ -1,7 +1,7 @@
 # copied from colcon-cd/function/colcon_cd.sh
 
 colcon_cd() {
-  if [ "$_ARGCOMPLETE" == "1" ]; then
+  if [ "$_ARGCOMPLETE" = "1" ]; then
     python3 -m colcon_cd.completer
   elif [ $# = 0 ]; then
     # change the working directory to the previously saved path
