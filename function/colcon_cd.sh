@@ -53,6 +53,7 @@ colcon_cd() {
 
     if [ "$_colcon_cd_root" != "" ]; then
       # try to find the given package from the saved path
+      _colcon_cd_old_pwd="$OLDPWD"
       _colcon_cd_pwd="$(pwd)"
       cd "$_colcon_cd_root"
 
@@ -69,6 +70,7 @@ colcon_cd() {
         OLDPWD="$_colcon_cd_pwd"
         unset _colcon_cd_pkg_path
         unset _colcon_cd_pwd
+        unset _colcon_cd_old_pwd
         return 0
       fi
       unset _colcon_cd_pkg_path
@@ -96,6 +98,7 @@ colcon_cd() {
       fi
       cd "$_colcon_cd_pkg_path"
       unset _colcon_cd_pkg_path
+      unset _colcon_cd_old_pwd
       return 0
     fi
     unset _colcon_cd_pkg_path
@@ -107,6 +110,8 @@ colcon_cd() {
       echo "Could not find package '$1' from the current working" \
         "directory" 1>&2
     fi
+    OLDPWD="$_colcon_cd_old_pwd"
+    unset _colcon_cd_old_pwd
     return 1
 
   else
