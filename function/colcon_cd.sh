@@ -66,6 +66,7 @@ colcon_cd() {
           echo "cd to the first one"
         fi
         cd "$_colcon_cd_pkg_path"
+        OLDPWD="$_colcon_cd_pwd"
         unset _colcon_cd_pkg_path
         unset _colcon_cd_pwd
         return 0
