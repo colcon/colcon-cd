@@ -53,8 +53,12 @@ colcon_cd() {
 
     if [ "$_colcon_cd_root" != "" ]; then
       # try to find the given package from the saved path
+
+      # Store the previous and current working directory to make the user history make sense
+      # (As a result of this script using cd to search directories)
       _colcon_cd_old_pwd="$OLDPWD"
       _colcon_cd_pwd="$(pwd)"
+
       cd "$_colcon_cd_root"
 
       _colcon_cd_pkg_path="$(COLCON_LOG_PATH=/dev/null colcon list --packages-select $1 --paths-only 2> /dev/null)"
@@ -67,6 +71,7 @@ colcon_cd() {
           echo "cd to the first one"
         fi
         cd "$_colcon_cd_pkg_path"
+        # Set the OLDPWD to the path on which colcon_cd was invoked, so 'cd -' works as expected.
         OLDPWD="$_colcon_cd_pwd"
         unset _colcon_cd_pkg_path
         unset _colcon_cd_pwd
@@ -110,6 +115,8 @@ colcon_cd() {
       echo "Could not find package '$1' from the current working" \
         "directory" 1>&2
     fi
+    # Restore the OLDPWD to the value from when colcon_cd was invoked, so 'cd -' works as expected.
+    # This is using the original OLDPWD value, since the colcon_cd failed and no move happend.
     OLDPWD="$_colcon_cd_old_pwd"
     unset _colcon_cd_old_pwd
     return 1
